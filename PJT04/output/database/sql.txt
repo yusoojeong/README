@@ -1,0 +1,65 @@
+CREATE DATABASE GAME;
+USE GAME;
+
+CREATE TABLE `room` (    
+  `id`    INT    NOT NULL    AUTO_INCREMENT COMMENT 'PK',
+  `title`    VARCHAR(30)    NOT NULL    COMMENT '제목',
+  `cur_count`     INT    DEFAULT 0    COMMENT '현재인원',
+  `max_count`    INT    DEFAULT 5    COMMENT '최대인원',
+  `mode`    INT    DEFAULT 1    COMMENT '게임모드',
+  `difficulty`    INT    NOT NULL    DEFAULT 1    COMMENT '난이도',
+  `start`    BOOLEAN    DEFAULT FALSE    COMMENT '시작여부',
+  PRIMARY KEY(id)
+);
+
+CREATE TABLE `user` (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT 'PK',
+  `username` varchar(30) NOT NULL COMMENT '아이디',
+  `nickname` varchar(30) NOT NULL COMMENT '게임닉네임',
+  `password` varchar(128) NOT NULL COMMENT '비밀번호',
+  `playcount` int DEFAULT '0' COMMENT '게임횟수',
+  `wincount` int DEFAULT '0' COMMENT '이긴횟수',
+  `score` int NOT NULL DEFAULT '0' COMMENT '점수',
+  `last_login` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '마지막접속',
+  `is_superuser` tinyint(1) DEFAULT '0' COMMENT '관리자',
+  `is_staff` tinyint(1) DEFAULT '0' COMMENT '스태프',
+  `is_active` tinyint(1) DEFAULT '1' COMMENT '액티브',
+  `date_joined` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '시간',
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `userconnect` (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT 'PK',
+  `user_id` int NOT NULL COMMENT 'User연결',
+  `friend_id` int NOT NULL COMMENT '친구연결',
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  KEY `friend_id` (`friend_id`),
+  CONSTRAINT `userconnect_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `userconnect_ibfk_2` FOREIGN KEY (`friend_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
+);
+
+CREATE TABLE `alarm` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `from_id` int NOT NULL,
+  `to_id` int NOT NULL,
+  `content` varchar(300) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `from_id` (`from_id`),
+  KEY `to_id` (`to_id`),
+  CONSTRAINT `alarm_ibfk_1` FOREIGN KEY (`from_id`) REFERENCES `user` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `alarm_ibfk_2` FOREIGN KEY (`to_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
+);
+
+CREATE TABLE `friendalarm` (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT 'PK',
+  `from` int NOT NULL COMMENT '발신자',
+  `to` int NOT NULL COMMENT '수신자',
+  PRIMARY KEY (`id`),
+  KEY `from` (`from`),
+  KEY `to` (`to`),
+  CONSTRAINT `friendalarm_ibfk_1` FOREIGN KEY (`from`) REFERENCES `user` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `friendalarm_ibfk_2` FOREIGN KEY (`to`) REFERENCES `user` (`id`) ON DELETE CASCADE
+);
+
+
