@@ -180,19 +180,19 @@
 
 ### ERD
 
-![erd image](./outputs/Database/erd.PNG)
+![erd image](./outputs/images/erd.PNG)
 
 ### Wire Frame
 
-![wire_frame 1](wire1.jpg)
+![wire_frame 1](./outputs/images/wire1.jpg)
 
-![wire_frame 2](wire2.jpg)
+![wire_frame 2](./outputs/images/wire2.jpg)
 
-![wire_frame 3](wire3.jpg)
+![wire_frame 3](./outputs/images/wire3.jpg)
 
 ## Color Map
 
-![colormap](colormap.jpg)
+![colormap](./outputs/images/colormap.jpg)
 
 - 상단 5색: 전체 디자인 색상
 - 하단 3색: 분석을 위해 제공하는 색상
