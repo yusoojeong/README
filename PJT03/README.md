@@ -180,7 +180,7 @@
 
 ### ERD
 
-![erd image](./outputs/Images/erd.PNG)
+![erd image](./outputs/Images/erd.png)
 
 ### Wire Frame
 
